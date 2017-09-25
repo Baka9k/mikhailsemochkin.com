@@ -1,20 +1,37 @@
 <template>
-  <p>Hello!</p>
+  <div>
+    
+    <navbar></navbar>
+    <div></div>
+    
+  </div>
 </template>
 
+
 <script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  
+  import Navbar from '@/components/Navbar'
+  
+  export default {
+    
+    name: 'index',
+    
+    components: {
+      Navbar
+    },
+    
+    data () {
+      return {}
     }
+    
   }
-}
+
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h1, h2 {
   font-weight: normal;
 }
@@ -32,4 +49,5 @@ li {
 a {
   color: #42b983;
 }
+
 </style>
