@@ -1,10 +1,9 @@
-<template>
-  <div>
-    
-    <navbar></navbar>
-    <div></div>
-    
-  </div>
+<template lang="pug">
+  
+  div
+    navbar
+    div
+  
 </template>
 
 
