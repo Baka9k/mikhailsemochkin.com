@@ -5,15 +5,14 @@
     b-navbar-brand(href='#') Mikhail Semochkin
     b-collapse#nav_collapse(is-nav='')
       b-nav(is-nav-bar='')
-        b-nav-item(href='#') Link
-        b-nav-item(href='#') Link
-        b-nav-item(href='#') Link
-        b-nav-item(href='#') Link
+        b-nav-item(href='#') Обо мне
+        b-nav-item(href='#') Опыт работы
+        b-nav-item(href='#') Портфолио
+        b-nav-item(href='#') Контакты
       // Right aligned nav items
       b-nav.ml-auto(is-nav-bar='')
         // b-nav-item(href='#') Link
 
-  
 </template>
 
 
@@ -30,24 +29,13 @@
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
   
-  h1, h2 {
-    font-weight: normal;
+  .navbar-brand {
+    font-family: Lobster, Helvetica, Airal, sans-serif;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
+  .nav {
+    font-family: "Roboto Condensed", Helvetica, Airal, sans-serif;
   }
-  
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  a {
-    color: #42b983;
-  }
-  
+
 </style>
