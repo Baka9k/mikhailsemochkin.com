@@ -1,15 +1,24 @@
 <template lang="pug">
   
   div#app
+    navbar
     router-view
   
 </template>
 
 
 <script>
+
+  import Navbar from '@/components/Navbar'
   
   export default {
-    name: 'app'
+    
+    name: 'app',
+
+    components: {
+      Navbar
+    }
+    
   }
 
 </script>
