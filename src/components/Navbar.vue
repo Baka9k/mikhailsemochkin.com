@@ -5,10 +5,10 @@
     b-navbar-brand(href='#') Mikhail Semochkin
     b-collapse#nav_collapse(is-nav='')
       b-nav(is-nav-bar='')
-        b-nav-item(href='#') Обо мне
-        b-nav-item(href='#') Опыт работы
-        b-nav-item(href='#') Портфолио
-        b-nav-item(href='#') Контакты
+        b-nav-item(to='about') Обо мне
+        b-nav-item(to='experience') Опыт работы
+        b-nav-item(to='portfolio') Портфолио
+        b-nav-item(to='contact') Контакты
       // Right aligned nav items
       b-nav.ml-auto(is-nav-bar='')
         // b-nav-item(href='#') Link
@@ -39,6 +39,12 @@
   }
   .nav {
     font-family: "Roboto Condensed", Helvetica, Airal, sans-serif;
+  }
+  @media (min-width: 768px) {
+    .navbar-expand-md .navbar-nav .nav-link {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
   }
 
 </style>
