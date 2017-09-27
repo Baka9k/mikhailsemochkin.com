@@ -79,7 +79,7 @@
         margin-bottom: 0;
       }
       p + p {
-        margin-bottom: 16px;
+        margin-top: 16px;
       }
       h4 {
         font-size: 14px;

@@ -35,6 +35,10 @@
     h1, h2, h3 {
       font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
     }
+    .cont {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
   }
   
 </style>

@@ -108,10 +108,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-  
-  .cont {
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
+
+
 
 </style>
