@@ -81,6 +81,15 @@
       p + p {
         margin-bottom: 16px;
       }
+      h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        margin-top: 0.9rem;
+      }
+      h4:first-child {
+        margin-top: 0;
+      }
     }
   }
 

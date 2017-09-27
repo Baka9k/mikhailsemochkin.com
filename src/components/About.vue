@@ -64,40 +64,38 @@
             ' всеми прочими вещами, которые нужны современному сайту.</p>'
           },
           {
-            title: 'Возраст',
+            title: 'Навыки',
             color: '#D1C4E9',
             lg: '4',
             md: '6',
             sm: '6',
             xs: '12',
-            content: '<p>' + age + '</p>'
+            content: '<h4>Верстка</h4>HTML5, CSS3, Bootstrap, Materialize, LESS, SCSS' +
+            '<h4>Фронтенд</h4>JS ES5/ES6/ES7, Vue, React, Ractive, JQuery' +
+            '<h4>Бекэнд</h4>Node.js, npm, nvm, Express, Passport, Pug' +
+            '<h4>Базы данных</h4>SQLite3, MongoDB, PostgeSQL' +
+            '<h4>Администрирование и деплой</h4>Debian, Ubuntu, Ubuntu Server, ssh, AWS, nginx' +
+            '<h4>Инструменты сборки и разработки</h4>git, gulp, grunt, webpack'
           },
           {
-            title: 'Обо мне',
-            color: '#B2EBF2',
+            title: 'Разное',
+            color: '#F8BBD0',
             lg: '4',
             md: '6',
             sm: '6',
             xs: '12',
-            content: 'Я молодец'
+            content: '<h4>Возраст</h4>' + (age || 21) +
+            '<h4>Местоположение</h4>Санкт-Петербург, Россия' +
+            '<h4>Гражданство</h4>Российская Федерация'
           },
           {
-            title: 'Обо мне',
-            color: '#B2EBF2',
+            title: 'Резюме',
+            color: '#ffcdd2',
             lg: '4',
             md: '6',
             sm: '6',
             xs: '12',
-            content: 'Я молодец'
-          },
-          {
-            title: 'Обо мне',
-            color: '#B2EBF2',
-            lg: '4',
-            md: '6',
-            sm: '6',
-            xs: '12',
-            content: 'Я молодец'
+            content: '<a href="/static/files/resume.pdf">Скачать резюме</a>'
           }
         ]
       }
