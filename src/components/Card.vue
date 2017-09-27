@@ -4,8 +4,7 @@
     .card(v-bind:style="{ 'background-color': color }")
       h2 {{title}}
       hr
-      p
-        | {{content}}
+      .content(v-html="content")
 
 </template>
 
@@ -73,6 +72,15 @@
       display: block;
       width: 100%;
       border-bottom: none;
+    }
+    /deep/ .content {
+      p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      p + p {
+        margin-bottom: 16px;
+      }
     }
   }
 

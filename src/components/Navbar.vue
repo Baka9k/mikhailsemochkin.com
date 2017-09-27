@@ -36,12 +36,17 @@
   
   .navbar {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    font-size: 16px;
+    height: 64px;
   }
   .navbar-brand {
     font-family: Lobster, Helvetica, Airal, sans-serif;
+    font-size: 28px;
   }
   .nav {
     font-family: "Roboto Condensed", Helvetica, Airal, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
   }
   @media (min-width: 768px) {
     .navbar-expand-md .navbar-nav .nav-link {
