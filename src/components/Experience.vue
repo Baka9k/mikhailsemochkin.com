@@ -1,6 +1,6 @@
 <template lang="pug">
   
-  b-container.cont
+  b-container.cont.max800-cont
     b-row
       b-col(col xs="12").timeline
         .entry
@@ -47,9 +47,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   
-  $gutter: 30px;
+  $gutter: 32px;
   $border-width: 4px;
-  $dot-diameter: 8px;
+  $dot-diameter: 20px;
   
   .timeline {
     position: relative;
@@ -62,7 +62,7 @@
       content: '';
       position: absolute;
       top: 0;
-      left:calc(33% + 15px); //$gutter/2
+      left:calc(33% + 13px);
       bottom: 0;
       width: $border-width;
       background: #ddd;
@@ -78,6 +78,9 @@
     clear: both;
     text-align: left;
     position: relative;
+    &:first-child {
+      margin-top: 20px;
+    }
     .title {
       margin-bottom: .5em;
       float: left;
@@ -85,6 +88,12 @@
       padding-right: $gutter;
       text-align: right;
       position: relative;
+      .company {
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 12px;
+        margin-bottom: 6px;
+      }
       &:before {
         content: '';
         position: absolute;
@@ -119,7 +128,7 @@
         }
       }
       ul {
-        color:#aaa;
+        color: #777;
         padding-left: 0;
         list-style-type: none;
         li:before {

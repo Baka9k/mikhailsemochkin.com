@@ -39,6 +39,9 @@
       padding-top: 30px;
       padding-bottom: 30px;
     }
+    .max800-cont {
+      max-width: 800px;
+    }
   }
   
 </style>
