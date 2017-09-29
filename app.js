@@ -3,30 +3,35 @@ const bodyParser = require('body-parser')
 const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
 const port = process.env.PORT || 8080
 const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const _ = require('lodash')
-const chalk = require('chalk');
+const chalk = require('chalk')
 
-const args = process.argv.slice(2);
+const args = process.argv.slice(2)
 
 // Admin's login and password
 const adminLogin = args[0]
 const adminPassword = args[1]
-const noArgsErrorMessage = 'You should start app.js with two arguments - admin login and admin password'
-if (!adminLogin || !adminPassword) {
+const sessionSecret = args[2]
+const noArgsErrorMessage = 'You should start app.js with three arguments - admin login, admin password and session secret'
+if (!adminLogin || !adminPassword || !sessionSecret) {
   console.log(chalk.red(noArgsErrorMessage))
 }
 
+const session = require('express-session')
+app.use(session({
+  secret: sessionSecret,
+  resave: true,
+  saveUninitialized: true
+}))
+
 // configure app
-// app.use(morgan('dev')); // log requests to the console
+app.use(morgan('dev')) // log requests to the console
 app.use('/static', express.static('./dist/static'))
 app.use('/uploads', express.static('./uploads'))
 app.use(cookieParser())
@@ -40,17 +45,13 @@ const options = {}
 const url = 'mongodb://localhost/mikhailsemochkin.com'
 mongoose.connect(url, options, function (err) {
   if (err) {
-    console.log(err)
+    console.log(chalk.red('Error while connecting to DB:'))
+    console.log(chalk.pink(err))
   }
 })
 
 // models
 const PortfolioEntry = require('./models/section')
-
-// configure passport
-app.use(session({ secret: 'VS9aqJd1q4ksabn' })) // session secret
-app.use(passport.initialize())
-app.use(passport.session()) // persistent login sessions
 
 // Files
 const getFileList = function (path, callback) {
@@ -62,60 +63,57 @@ const deleteFile = function (path) {
 
 // ============================== AUTHORIZATION ===============================
 
-function isLoggedIn (req, res, next) {
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated()) {
+// Authentication and Authorization Middleware
+const auth = function (req, res, next) {
+  if (req.session && req.session.loggedIn) {
     return next()
+  } else {
+    return res.sendStatus(401)
   }
-  // if they aren't
-  res.send(401, 'Unauthorized')
 }
 
 // =============================================================================
 
 
-const router = express.Router();
+const router = express.Router()
 
 
 router.route('/')
   
-  .get(isLoggedIn, function (req, res) {
-    res.sendFile(__dirname + '/dist/index.html');
+  .get(function (req, res) {
+    res.sendFile(path.join(__dirname, '/dist/index.html'))
   })
 
 
 router.route('/login')
 
   .get(function (req, res) {
-    res.sendFile(__dirname + '/html/login.html');
+    res.sendFile(path.join(__dirname, '/html/login.html'))
   })
 
-  .post(passport.authenticate('local-login', {
-    successRedirect: '/', // redirect to the secure section
-    failureRedirect: '/login-error' // redirect back to the signup page if there is an error
-  }))
-
-
-router.route('/login-error')
-  .get(function (req, res) {
-    res.sendFile(__dirname + '/html/login-error.html');
+  .post(function (req, res) {
+    if (req.query.username === adminLogin && req.query.password === adminPassword) {
+      req.session.loggedIn = true
+      res.redirect('/')
+    } else {
+      res.sendFile(path.join(__dirname, '/html/login-error.html'))
+    }
   })
 
 
 router.route('/logout')
-  
+
   .get(function (req, res) {
-    req.logout()
+    req.session.destroy()
     res.redirect('/login')
   })
 
 
 router.route('/api/amiadmin')
-  
+
   .get(
-    isLoggedIn,
     function (req, res) {
-      if (req.user.isAdmin) {
+      if (req.session.loggedIn) {
         res.json({isAdmin: true})
       } else {
         res.json({isAdmin: false})
@@ -128,5 +126,5 @@ router.route('/api/amiadmin')
 app.use('/', router)
 
 
-app.listen(port);
-console.log('App listening on port ' + port)
+app.listen(port)
+console.log(chalk.green('App listening on port ' + port))
