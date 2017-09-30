@@ -27,6 +27,9 @@
 <style lang="scss">
   
   #app {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f2f2f2;
     font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -41,6 +44,15 @@
     }
     .max800-cont {
       max-width: 800px;
+    }
+    .centered {
+      position: relative;
+      float: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form {
+    
     }
   }
   

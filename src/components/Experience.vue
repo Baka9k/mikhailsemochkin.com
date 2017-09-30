@@ -2,7 +2,7 @@
   
   b-container.cont.max800-cont
     b-row
-      b-col(col xs="12").timeline
+      b-col(col, xs="12").timeline
         .entry
           .title
             h3 осень 2016 - лето 2017

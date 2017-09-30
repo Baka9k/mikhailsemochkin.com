@@ -21,6 +21,7 @@ const sessionSecret = args[2]
 const noArgsErrorMessage = 'You should start app.js with three arguments - admin login, admin password and session secret'
 if (!adminLogin || !adminPassword || !sessionSecret) {
   console.log(chalk.red(noArgsErrorMessage))
+  process.exit(1)
 }
 
 const session = require('express-session')
@@ -31,7 +32,7 @@ app.use(session({
 }))
 
 // configure app
-app.use(morgan('dev')) // log requests to the console
+// app.use(morgan('dev')) // log requests to the console
 app.use('/static', express.static('./dist/static'))
 app.use('/uploads', express.static('./uploads'))
 app.use(cookieParser())
@@ -42,7 +43,7 @@ app.use(bodyParser.json())
 
 // configure db
 const options = {}
-const url = 'mongodb://localhost/mikhailsemochkin.com'
+const url = 'mongodb://localhost/mikhailsemochkin'
 mongoose.connect(url, options, function (err) {
   if (err) {
     console.log(chalk.red('Error while connecting to DB:'))
@@ -51,7 +52,7 @@ mongoose.connect(url, options, function (err) {
 })
 
 // models
-const PortfolioEntry = require('./models/section')
+// const PortfolioEntry = require('./models/section')
 
 // Files
 const getFileList = function (path, callback) {
@@ -87,16 +88,13 @@ router.route('/')
 
 router.route('/login')
 
-  .get(function (req, res) {
-    res.sendFile(path.join(__dirname, '/html/login.html'))
-  })
-
   .post(function (req, res) {
-    if (req.query.username === adminLogin && req.query.password === adminPassword) {
+    console.log(req.body)
+    if (req.body.login === adminLogin && req.body.password === adminPassword) {
       req.session.loggedIn = true
       res.redirect('/')
     } else {
-      res.sendFile(path.join(__dirname, '/html/login-error.html'))
+      res.redirect('/#/login-error')
     }
   })
 
@@ -105,7 +103,7 @@ router.route('/logout')
 
   .get(function (req, res) {
     req.session.destroy()
-    res.redirect('/login')
+    res.redirect('/#/login')
   })
 
 
