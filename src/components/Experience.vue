@@ -54,7 +54,7 @@
   .timeline {
     position: relative;
     float: left;
-    background-color: #ECEFF1;
+    background-color: #fff;
     border-radius: 2px;
     padding: 20px 15px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);

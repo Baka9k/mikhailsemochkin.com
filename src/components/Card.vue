@@ -62,18 +62,18 @@
   .card {
     border-radius: 2px;
     border: none;
-    padding: 4px;
+    padding: 2px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     h2 {
-      margin: 11px 15px;
+      margin: 13px 15px;
     }
     hr {
       border-top: 1px dashed #8c8b8b;
       display: block;
       width: 100%;
       border-bottom: none;
-      margin-bottom: 4px;
-      margin-top: 4px;
+      margin-bottom: 2px;
+      margin-top: 2px;
     }
     /deep/ .content {
       background-color: #fff;
