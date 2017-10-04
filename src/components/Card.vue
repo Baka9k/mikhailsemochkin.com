@@ -1,6 +1,6 @@
 <template lang="pug">
   
-  b-col.card-cont(col, :lg="lg", :md="md", :sm="sm", :xs="xs")
+  b-col.card-cont(col, :lg="lg", :md="md", :sm="sm", :cols="xs")
     .card(v-bind:style="{ 'background-color': color }")
       h2 {{title}}
       hr

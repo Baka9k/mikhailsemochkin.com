@@ -1,11 +1,11 @@
 <template lang="pug">
   
-  b-container.cont.max800-cont
-    b-row
-      b-col(col, xs="12").timeline
+  b-container.cont
+    b-row.max800.centered
+      b-col(col, cols="12").timeline
         .entry
           .title
-            h3 осень 2016 - лето 2017
+            h3 осень&nbsp;2016 - лето&nbsp;2017
             p.company #frenchrabbit
             p.company-site
               a(href="https://frenchrabbit.ru") frenchrabbit.ru
@@ -58,6 +58,9 @@
     border-radius: 2px;
     padding: 20px 15px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    @media (max-width: 768px) {
+      padding: 20px 12px;
+    }
     &:before {
       content: '';
       position: absolute;
@@ -90,9 +93,20 @@
       position: relative;
       .company {
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 600;
         margin-top: 12px;
         margin-bottom: 6px;
+        @media (max-width: 768px) {
+          font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+          font-size: 15px;
+          margin-bottom: 0;
+        }
+      }
+      .company-site {
+        @media (max-width: 768px) {
+          font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+          font-size: 14px;
+        }
       }
       &:before {
         content: '';
@@ -109,6 +123,10 @@
       h3 {
         margin: 0;
         font-size: 120%;
+        @media (max-width: 768px) {
+          font-size: 85%;
+          text-align: center;
+        }
       }
       p {
         margin: 0;
@@ -122,9 +140,12 @@
       padding-left: $gutter;
       p {
         line-height: 1.4em;
+        @media (max-width: 768px) {
+          line-height: 1.25em;
+        }
         &:first-child {
           margin-top: 0;
-          font-weight: 400;
+          font-weight: 600;
         }
       }
       ul {
@@ -135,6 +156,10 @@
           content: "–";
           margin-right: .5em;
         }
+      }
+      @media (max-width: 768px) {
+        font-size: 92%;
+        line-height: 17.5px;
       }
     }
   }

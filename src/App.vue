@@ -78,7 +78,7 @@
         padding-bottom: 10px;
       }
     }
-    .max800-cont {
+    .max800 {
       max-width: 800px;
     }
     .centered {

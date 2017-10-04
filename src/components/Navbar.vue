@@ -1,7 +1,7 @@
 <template lang="pug">
 
   b-navbar(toggleable='md', type='dark', variant='info')
-    b-nav-toggle(target='nav_collapse')
+    b-nav-toggle.nav-toggle(target='nav_collapse')
     b-navbar-brand(href='#') Mikhail Semochkin
     b-collapse#nav_collapse(is-nav)
       b-nav(is-nav-bar='')
@@ -70,11 +70,17 @@
     }
   }
   @media (max-width: 767px) {
-    .navbar-collapse {
+    .navbar {
+      min-height: initial;
+    }
+    #nav_collapse {
       border-top: solid 1px rgba(255, 255, 255, 0.1);
       margin-top: 8px;
       padding-top: 8px;
     }
+  }
+  .nav-toggle {
+    outline: #fff;
   }
 
 </style>
