@@ -93,8 +93,11 @@
     .btn {
       border-radius: 2px;
       color: #fff;
-      margin: 6px;
       cursor: pointer;
+    }
+    .btn-success {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
     }
   }
   
