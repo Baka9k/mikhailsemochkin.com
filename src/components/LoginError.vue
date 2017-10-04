@@ -7,9 +7,11 @@
           strong
             span.fa.fa-sign-in
             |  Ошибка авторизации
-        | Вы ввели неправильный логин или пароль
-        b-button.btn.btn-success.btn-lg(to='login') Ещё раз
-        b-button.btn.btn-success.btn-lg(to='/') На сайт
+        p
+          | Вы ввели неправильный логин или пароль
+        p
+          b-button.btn.btn-warning.btn-lg(to='login') Ещё раз
+          b-button.btn.btn-success.btn-lg(to='/') На сайт
         
 </template>
 

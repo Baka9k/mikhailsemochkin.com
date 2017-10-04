@@ -17,7 +17,8 @@
 
     props: {
       title: {
-        type: String
+        type: String,
+        default: ' '
       },
       color: {
         type: String,
@@ -58,6 +59,9 @@
   
   .card-cont {
     padding: 20px 15px;
+    @media (max-width: 768px) {
+      padding: 12px 15px;
+    }
   }
   .card {
     border-radius: 2px;
