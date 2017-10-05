@@ -52,7 +52,7 @@ mongoose.connect(url, options, function (err) {
 })
 
 // models
-const PortfolioItem = require('./models/PortfolioItem')
+const PortfolioItem = require('./models/portfolioItem')
 
 // Files
 const getFileList = function (path, callback) {
@@ -132,6 +132,7 @@ router.route('/api/portfolio')
       newPortfolioItem.title = req.body.title || ''
       newPortfolioItem.description = req.body.description || ''
       newPortfolioItem.dateCreated = new Date()
+      newPortfolioItem.priority = req.body.priority || Infinity
       newPortfolioItem.content = req.body.content || ''
       newPortfolioItem.hide = req.body.hide || false
       newPortfolioItem.save(function (err, item) {
@@ -152,12 +153,13 @@ router.route('/api/portfolio')
       .find({}, {
         title: 1,
         dateCreated: 1,
+        priority: 1,
         description: 1,
         content: 0,        // don't send content
         hide: 1,
         _id: 1
       })
-      .sort({dateCreated: -1})
+      .sort({priority: 1})
       .exec(function (err, items) {
         if (err) {
           console.log(chalk.red('Error while getting sections: '))
@@ -210,6 +212,7 @@ router.route('/api/portfolio/:item_id')
         } else {
           item.tile = req.body.title
           item.description = req.body.description
+          item.priority = req.body.priority || Infinity
           item.content = req.body.content
           item.save(function (err) {
             if (err) {
@@ -246,9 +249,22 @@ router.route('/api/portfolio/:item_id')
 
 // ============== /API ==============
 
-
 app.use('/', router)
+
+
+const getPortfolioItemsLength = function (cb) {
+  let len = PortfolioItem.count({}, function (err, count) {
+    if (err) {
+      if (cb) cb(err)
+    } else {
+      if (cb) cb(count)
+    }
+  })
+}
 
 
 app.listen(port)
 console.log(chalk.green('App listening on port ' + port))
+getPortfolioItemsLength(function (count) {
+  console.log(chalk.green('Portfolio items in DB: ' + count))
+})

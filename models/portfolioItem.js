@@ -6,6 +6,7 @@ const PortfolioModel = function () {
     title: String,
     dateCreated: Date,
     description: String,
+    priority: Number,
     content: String,
     hide: Boolean
   })

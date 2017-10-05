@@ -17,6 +17,19 @@
   
       .items
         
+        .loading-cont(v-if="loading")
+          .loading Загрузка
+          
+        .loading-error-cont(v-if="loadingError")
+          .loading-error Извините, произошла ошибка при загрузке портфолио.
+          
+        .item(v-for="(item, index) in portfolioItems")
+          .item-title
+            h2 {{item.title}}
+          .item-description
+            | {{item.description}}
+        
+        
             
 </template>
 
@@ -37,13 +50,14 @@
     },
     
     methods: {
+      
       getItems: function () {
         const that = this
         $.ajax({
           type: 'GET',
           url: '/api/portfolio/',
           success: function (res) {
-            that.portfolioItems = res.portfolioItems
+            that.portfolioItems = res.items
             that.loading = false
           },
           error: function (err) {
@@ -54,18 +68,65 @@
           }
         })
       },
-      addItem: function () {
       
+      resetNewItem: function () {
+        this.newItem.title = ''
+        this.newItem.description = ''
+        this.newItem.priority = null
+      },
+      
+      addItem: function () {
+        const newItem = {
+          title: this.newItem.title || 'Новая запись в портфолио',
+          description: this.newItem.description || 'Описание новой записи в портфолио',
+          priority: this.newItem.priority || (this.portfolioItems.length + 1),
+          content: ''
+        }
+        this.resetNewItem()
+        this.portfolioItems.unshift(newItem)
+        // send new item to server
+        const that = this
+        $.ajax({
+          url: '/api/portfolio/',
+          type: 'POST',
+          data: {
+            title: newItem.title,
+            description: newItem.description,
+            priority: newItem.priority,
+            content: newItem.content
+          },
+          error: function (err) {
+            that.handleServerError('Error while sending new subtitle to server: ', err)
+          }
+        })
+      },
+
+      handleServerError: function (message, err) {
+        if (message) {
+          console.log(message)
+        }
+        if (err.responseJSON && err.responseJSON.error) {
+          console.log(err.responseJSON.error)
+        } else {
+          console.log(err)
+        }
+        alert(this.serverErrorMessage)
       }
+      
     },
     
     data () {
       return {
-        newItemTitle: '',
-        newItemDescription: '',
+        newItem: {
+          title: '',
+          description: '',
+          priority: null
+        },
         portfolioItems: [],
         loading: true,
-        loadingError: false
+        loadingError: false,
+        serverErrorMessage: 'Возникли проблемы при синхронизации ваших изменений с сервером. ' +
+          'Проверьте ваше подключение.'
       }
     }
     
