@@ -11,6 +11,13 @@
   export default {
     
     name: 'contact',
+
+    props: {
+      isAdmin: {
+        type: Boolean,
+        default: false
+      }
+    },
     
     data () {
       return {}

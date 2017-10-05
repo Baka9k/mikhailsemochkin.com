@@ -26,6 +26,13 @@
     
     name: 'about',
 
+    props: {
+      isAdmin: {
+        type: Boolean,
+        default: false
+      }
+    },
+
     components: {
       Card
     },

@@ -25,6 +25,13 @@
   export default {
     
     name: 'login',
+
+    props: {
+      isAdmin: {
+        type: Boolean,
+        default: false
+      }
+    },
     
     data () {
       return {}

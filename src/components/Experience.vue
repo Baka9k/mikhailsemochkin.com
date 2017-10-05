@@ -34,6 +34,13 @@
   export default {
     
     name: 'experience',
+
+    props: {
+      isAdmin: {
+        type: Boolean,
+        default: false
+      }
+    },
     
     data () {
       return {}

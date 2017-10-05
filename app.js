@@ -52,7 +52,7 @@ mongoose.connect(url, options, function (err) {
 })
 
 // models
-// const PortfolioEntry = require('./models/section')
+const PortfolioEntry = require('./models/portfolioEntry')
 
 // Files
 const getFileList = function (path, callback) {
