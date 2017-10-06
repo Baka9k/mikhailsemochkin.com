@@ -2,43 +2,44 @@
   
   div
     b-container.cont
+      .max800.centered
+        
+        .add-item(v-if="isAdmin")
+          .card(v-bind:style="{ 'background-color': color }")
+            h4 Добавить запись в портфолио
+            hr
+            .content
+              b-input-group.field(left="Заголовок")
+                b-form-input(v-model="newItem.title")
+              b-input-group.field(left='Описание')
+                b-form-input(v-model="newItem.description")
+              b-row
+                b-col(cols="6")
+                  b-form-select.priority(v-model="newItem.priority")
+                    template(slot="first")
+                      // this slot appears above the options from 'options' prop
+                      option(:value="null", disabled) -- Приоритет --
+                    option(v-for="i in (portfolioItems.length+1)", :value="i") {{i}}
+                b-col(cols="6")
+                  b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
     
-      .add-item(v-if="isAdmin")
-        .card(v-bind:style="{ 'background-color': color }")
-          h4 Добавить запись в портфолио
-          hr
-          .content
-            b-input-group.field(left="Заголовок")
-              b-form-input(v-model="newItem.title")
-            b-input-group.field(left='Описание')
-              b-form-input(v-model="newItem.description")
-            b-row
-              b-col(cols="6")
-                b-form-select.priority(v-model="newItem.priority")
-                  template(slot="first")
-                    // this slot appears above the options from 'options' prop
-                    option(:value="null", disabled) -- Приоритет --
-                  option(v-for="i in (portfolioItems.length+1)", :value="i") {{i}}
-              b-col(cols="6")
-                b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
   
-  
-      .items
-        
-        .loading-cont(v-if="loading")
-          .loading
-            .gear
+        .items
           
-        .loading-error-cont(v-if="loadingError")
-          .loading-error Извините, произошла ошибка при загрузке портфолио.
+          .loading-cont(v-if="loading")
+            .loading
+              .gear
+            
+          .loading-error-cont(v-if="loadingError")
+            .loading-error Извините, произошла ошибка при загрузке портфолио.
+            
+          .item(v-for="(item, index) in portfolioItems")
+            .item-title
+              h4 {{item.title}}
+            .item-description
+              | {{item.description}}
           
-        .item(v-for="(item, index) in portfolioItems")
-          .item-title
-            h4 {{item.title}}
-          .item-description
-            | {{item.description}}
-        
-        
+          
             
 </template>
 
@@ -210,6 +211,28 @@
   }
   .item+.item {
     margin-top: 16px;
+  }
+
+  @media (max-width: 379px) {
+    h4 {
+      font-size: 1rem;
+    }
+    /deep/ .add-item {
+      .input-group-addon {
+        padding: .1rem .4rem;
+        font-size: 0.8rem;
+      }
+      .form-control {
+        padding: .4rem .75rem;
+        font-size: 0.8rem;
+      }
+    }
+    .card .addbtn {
+      padding: 2px 12px;
+    }
+    .item+.item {
+      margin-top: 10px;
+    }
   }
 
 </style>
