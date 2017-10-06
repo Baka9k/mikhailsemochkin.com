@@ -9,10 +9,10 @@
           hr
           .content
             b-input-group(left="Заголовок")
-              b-form-input(v-model="newItemTitle")
+              b-form-input(v-model="newItem.title")
             br
             b-input-group(left='Описание')
-              b-form-input(v-model="newItemDescription")
+              b-form-input(v-model="newItem.description")
             b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
   
       .items

@@ -89,12 +89,14 @@ router.route('/')
 router.route('/login')
 
   .post(function (req, res) {
-    console.log(req.body)
+    console.log(chalk.cyan('Login attempt: ') + `\nLogin: ${req.body.login}\nPassword: ${req.body.password}`)
     if (req.body.login === adminLogin && req.body.password === adminPassword) {
       req.session.loggedIn = true
       res.redirect('/')
+      console.log(chalk.green('User logged in'))
     } else {
       res.redirect('/#/login-error')
+      console.log(chalk.red('Login rejected'))
     }
   })
 
