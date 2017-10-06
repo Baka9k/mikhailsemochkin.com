@@ -115,6 +115,10 @@
       
     },
     
+    created: function () {
+      this.getItems()
+    },
+    
     data () {
       return {
         newItem: {

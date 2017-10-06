@@ -47,7 +47,7 @@ const url = 'mongodb://localhost/mikhailsemochkin'
 mongoose.connect(url, options, function (err) {
   if (err) {
     console.log(chalk.red('Error while connecting to DB:'))
-    console.log(chalk.pink(err))
+    console.log(chalk.red(err))
   }
 })
 
@@ -138,7 +138,7 @@ router.route('/api/portfolio')
       newPortfolioItem.save(function (err, item) {
         if (err) {
           console.log(chalk.red('Error while saving portfolio entry: '))
-          console.log(chalk.pink(err))
+          console.log(chalk.red(err))
           res.status(500).json({ error: err })
         }
         res.json({ itemID: item._id })
@@ -151,19 +151,13 @@ router.route('/api/portfolio')
   .get(function (req, res) {
     PortfolioItem
       .find({}, {
-        title: 1,
-        dateCreated: 1,
-        priority: 1,
-        description: 1,
-        content: 0,        // don't send content
-        hide: 1,
-        _id: 1
+        content: 0   // don't send content
       })
       .sort({priority: 1})
       .exec(function (err, items) {
         if (err) {
-          console.log(chalk.red('Error while getting sections: '))
-          console.log(chalk.pink(err))
+          console.log(chalk.red('Error while getting portfolio items in /api/portfolio/ GET: '))
+          console.log(chalk.red(err))
           res.status(500).json({ error: err })
         } else {
           res.json({ items: items })
@@ -183,7 +177,7 @@ router.route('/api/portfolio/:item_id')
       PortfolioItem.findById(req.params.item_id, function (err, item) {
         if (err) {
           console.log(chalk.red('Error while getting portfolio item with id ' + req.params.item_id + ': '))
-          console.log(chalk.pink(err))
+          console.log(chalk.red(err))
           res.status(500).json({ error: err })
         } else {
           res.json(item.content)
@@ -207,7 +201,7 @@ router.route('/api/portfolio/:item_id')
       PortfolioItem.findById(req.params.item_id, function (err, item) {
         if (err) {
           console.log(chalk.red('Error while updating portfolio item with id ' + req.params.item_id + ': '))
-          console.log(chalk.pink(err))
+          console.log(chalk.red(err))
           res.status(500).json({ error: err })
         } else {
           item.tile = req.body.title
@@ -216,8 +210,8 @@ router.route('/api/portfolio/:item_id')
           item.content = req.body.content
           item.save(function (err) {
             if (err) {
-              console.log(chalk.red('Error while updating section with id ' + req.params.item_id + ': '))
-              console.log(chalk.pink(err))
+              console.log(chalk.red('Error while updating portfolio item with id ' + req.params.item_id + ': '))
+              console.log(chalk.red(err))
               res.status(500).json({ error: err })
             } else {
               res.json({ itemID: item._id })
@@ -238,7 +232,7 @@ router.route('/api/portfolio/:item_id')
       }, function (err, item) {
         if (err) {
           console.log(chalk.red('Error while deleting portfolio item with id ' + req.params.item_id + ': '))
-          console.log(chalk.pink(err))
+          console.log(chalk.red(err))
           res.status(500).json({ error: err })
         } else {
           res.json({ itemID: item._id })
