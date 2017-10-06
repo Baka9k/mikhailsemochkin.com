@@ -26,7 +26,8 @@
       .items
         
         .loading-cont(v-if="loading")
-          .loading Загрузка
+          .loading
+            .gear
           
         .loading-error-cont(v-if="loadingError")
           .loading-error Извините, произошла ошибка при загрузке портфолио.
