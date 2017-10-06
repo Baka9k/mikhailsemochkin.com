@@ -29,7 +29,7 @@
     "vue-router": "^2.7.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.2",
+    "autoprefixer": "^7.1.4",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.1.1",
@@ -79,6 +79,7 @@
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.2.0",
     "phantomjs-prebuilt": "^2.1.14",
+    "postcss-loader": "^2.0.6",
     "rimraf": "^2.6.0",
     "sass-loader": "^6.0.6",
     "selenium-server": "^3.6.0",
