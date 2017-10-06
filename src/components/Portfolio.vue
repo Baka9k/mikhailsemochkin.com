@@ -142,11 +142,13 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   
+  @import '../scss/variables.scss';
+  
   .card {
     border-radius: 2px;
     border: none;
     padding: 2px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: $card-shadow;
     background-color: #CFD8DC;
     h2 {
       margin: 13px 15px;
@@ -169,6 +171,21 @@
       float: right;
       margin: 15px 0 0 0;
     }
+  }
+  
+  .item {
+    border-radius: 2px;
+    border: none;
+    box-shadow: $card-shadow;
+    background-color: #fff;
+    padding: 15px;
+    .item-description {
+      font-style: italic;
+      color: #777;
+    }
+  }
+  .item+.item {
+    margin-top: 16px;
   }
 
 </style>

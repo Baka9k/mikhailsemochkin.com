@@ -57,6 +57,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   
+  @import '../scss/variables.scss';
+  
   .card-cont {
     padding: 20px 15px;
     @media (max-width: 768px) {
@@ -67,7 +69,7 @@
     border-radius: 2px;
     border: none;
     padding: 2px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: $card-shadow;
     h2 {
       margin: 13px 15px;
     }

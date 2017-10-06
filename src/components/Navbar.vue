@@ -42,8 +42,10 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   
+  @import '../scss/variables.scss';
+  
   .navbar {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: $card-shadow;
     font-size: 16px;
     min-height: 64px;
   }
