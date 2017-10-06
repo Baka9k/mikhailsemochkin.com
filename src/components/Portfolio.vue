@@ -5,15 +5,23 @@
     
       .add-item(v-if="isAdmin")
         .card(v-bind:style="{ 'background-color': color }")
-          h2 Добавить запись в портфолио
+          h4 Добавить запись в портфолио
           hr
           .content
-            b-input-group(left="Заголовок")
+            b-input-group.field(left="Заголовок")
               b-form-input(v-model="newItem.title")
-            br
-            b-input-group(left='Описание')
+            b-input-group.field(left='Описание')
               b-form-input(v-model="newItem.description")
-            b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
+            b-row
+              b-col(cols="6")
+                b-form-select.priority(v-model="newItem.priority")
+                  template(slot="first")
+                    // this slot appears above the options from 'options' prop
+                    option(:value="null", disabled) -- Приоритет --
+                  option(v-for="i in (portfolioItems.length+1)", :value="i") {{i}}
+              b-col(cols="6")
+                b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
+  
   
       .items
         
@@ -79,7 +87,7 @@
         const newItem = {
           title: this.newItem.title || 'Новая запись в портфолио',
           description: this.newItem.description || 'Описание новой записи в портфолио',
-          priority: this.newItem.priority || (this.portfolioItems.length + 1),
+          priority: parseInt(this.newItem.priority) || (this.portfolioItems.length + 1),
           content: ''
         }
         this.resetNewItem()
@@ -148,9 +156,9 @@
     border-radius: 2px;
     border: none;
     padding: 2px;
-    box-shadow: $card-shadow;
+    box-shadow: $card-shadow-light;
     background-color: #CFD8DC;
-    h2 {
+    h4 {
       margin: 13px 15px;
     }
     hr {
@@ -169,8 +177,23 @@
     .addbtn {
       position: relative;
       float: right;
-      margin: 15px 0 0 0;
+      padding: 5px 10px;
     }
+    .addbtn, .priority {
+      margin-top: 10px;
+    }
+    .priority {
+      max-width: 170px;
+      border-radius: 2px;
+    }
+  }
+  
+  .add-item {
+    margin-bottom: 26px;
+  }
+  
+  .field+.field {
+    margin-top: 10px;
   }
   
   .item {
