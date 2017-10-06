@@ -25,7 +25,7 @@
           
         .item(v-for="(item, index) in portfolioItems")
           .item-title
-            h2 {{item.title}}
+            h4 {{item.title}}
           .item-description
             | {{item.description}}
         
@@ -176,11 +176,11 @@
   .item {
     border-radius: 2px;
     border: none;
-    box-shadow: $card-shadow;
+    box-shadow: $card-shadow-light;
     background-color: #fff;
     padding: 15px;
+    cursor: pointer;
     .item-description {
-      font-style: italic;
       color: #777;
     }
   }
