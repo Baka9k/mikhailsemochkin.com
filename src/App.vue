@@ -57,12 +57,14 @@
 
 <style lang="scss">
   
+  @import 'scss/variables.scss';
+  
   #app {
     width: 100%;
     min-height: 100vh;
     background-color: #f2f2f2;
     font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
-    color: #212529;
+    color: $font-color-primary;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;

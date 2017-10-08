@@ -200,6 +200,7 @@
 <style lang="scss" scoped>
   
   @import '../scss/variables.scss';
+  @import '../scss/loading-gears.scss';
   
   .card {
     border-radius: 2px;
@@ -254,7 +255,7 @@
     position: relative;
     cursor: pointer;
     .item-description {
-      color: #777;
+      color: $font-color-secondary;
     }
   }
   .item+.item {
@@ -272,10 +273,11 @@
       bottom: 0;
       right: 0;
     }
+    color: $font-color-secondary;
     position: absolute;
     top: 15px;
     right: 15px;
-    border: solid 1px #777;
+    border: solid 1px $font-color-secondary;
     border-radius: 2px;
     width: 40px;
     height: 40px;
