@@ -3,41 +3,47 @@
   div
     b-container.cont
       .max800.centered
-        
-        .add-item(v-if="isAdmin")
-          .card(v-bind:style="{ 'background-color': color }")
-            h4 Добавить запись в портфолио
-            hr
-            .content
-              b-input-group.field(left="Заголовок")
-                b-form-input(v-model="newItem.title")
-              b-input-group.field(left='Описание')
-                b-form-input(v-model="newItem.description")
-              b-row
-                b-col(cols="6")
-                  b-form-select.priority(v-model="newItem.priority")
-                    template(slot="first")
-                      // this slot appears above the options from 'options' prop
-                      option(:value="null", disabled) -- Приоритет --
-                    option(v-for="i in (portfolioItems.length+1)", :value="i") {{i}}
-                b-col(cols="6")
-                  b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
-    
   
-        .items
+        .loading-cont(v-if="loading")
+          .loading
+            .gear
+  
+        .loading-error-cont(v-else-if="loadingError")
+          .loading-error Извините, произошла ошибка при загрузке портфолио.
           
-          .loading-cont(v-if="loading")
-            .loading
-              .gear
-            
-          .loading-error-cont(v-if="loadingError")
-            .loading-error Извините, произошла ошибка при загрузке портфолио.
-            
-          .item(v-for="(item, index) in portfolioItems")
-            .item-title
-              h4 {{item.title}}
-            .item-description
-              | {{item.description}}
+        .loaded(v-else)
+          
+          .add-item(v-if="isAdmin")
+            .card(v-bind:style="{ 'background-color': color }")
+              h4 Добавить запись в портфолио
+              hr
+              .content
+                b-input-group.field(left="Заголовок")
+                  b-form-input(v-model="newItem.title")
+                b-input-group.field(left='Описание')
+                  b-form-input(v-model="newItem.description")
+                b-row
+                  b-col(cols="6")
+                    b-form-select.priority(v-model="newItem.priority")
+                      template(slot="first")
+                        // this slot appears above the options from 'options' prop
+                        option(:value="null", disabled) -- Приоритет --
+                      option(v-for="i in (portfolioItems.length+1)", :value="i") {{i}}
+                  b-col(cols="6")
+                    b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
+                    
+          .items
+            .item(v-for="(item, index) in portfolioItems")
+              .item-title
+                h4 {{item.title}}
+              .item-description
+                | {{item.description}}
+              .item-status(v-if="item.unsynced")
+                icon(name="spinner", spin)
+              .item-status(v-else-if="item.syncError")
+                icon(name="warning")
+              .item-status(v-else, @click="removeItem(index)")
+                icon(name="trash")
           
           
             
@@ -47,7 +53,11 @@
 <script>
 
   import $ from 'jquery'
-  
+  import Icon from 'vue-awesome/components/Icon'
+  import 'vue-awesome/icons/trash'
+  import 'vue-awesome/icons/spinner'
+  import 'vue-awesome/icons/warning'
+
   export default {
     
     name: 'portfolio',
@@ -57,6 +67,10 @@
         type: Boolean,
         default: false
       }
+    },
+    
+    components: {
+      Icon
     },
     
     methods: {
@@ -69,6 +83,7 @@
           success: function (res) {
             that.portfolioItems = res.items
             that.loading = false
+            // console.log(res)
           },
           error: function (err) {
             console.log('Error in getItems(): ', err)
@@ -90,23 +105,55 @@
           title: this.newItem.title || 'Новая запись в портфолио',
           description: this.newItem.description || 'Описание новой записи в портфолио',
           priority: parseInt(this.newItem.priority) || (this.portfolioItems.length + 1),
-          content: ''
+          content: '',
+          unsynced: true,
+          syncError: false
         }
         this.resetNewItem()
         this.portfolioItems.unshift(newItem)
-        // send new item to server
+        this.sendItemToServer(newItem)
+      },
+      
+      removeItem: function (index) {
+        const deletedItem = this.portfolioItems.splice(index, 1)[0]
+        const that = this
+        $.ajax({
+          url: '/api/portfolio/' + deletedItem._id,
+          type: 'DELETE',
+          error: function (err) {
+            that.handleServerError('Error while deleting portfolio item on server: ', err)
+          }
+        })
+      },
+      
+      sendItemToServer: function (item) {
+        if (!item) {
+          console.log("Error in sendItemToServer(): 'item' argument is not provided")
+        }
         const that = this
         $.ajax({
           url: '/api/portfolio/',
           type: 'POST',
           data: {
-            title: newItem.title,
-            description: newItem.description,
-            priority: newItem.priority,
-            content: newItem.content
+            title: item.title,
+            description: item.description,
+            priority: item.priority,
+            content: item.content
+          },
+          success: function (res) {
+            item.unsynced = false
+            if (res.itemID) {
+              item._id = res.itemID
+            } else {
+              item.syncError = true
+              that.handleServerError('Error while sending new portfolio item to server: ',
+                'Server did not return created portfolio item ID in response')
+            }
           },
           error: function (err) {
-            that.handleServerError('Error while sending new subtitle to server: ', err)
+            that.handleServerError('Error while sending new portfolio item to server: ', err)
+            item.unsynced = false
+            item.syncError = true
           }
         })
       },
@@ -204,6 +251,7 @@
     box-shadow: $card-shadow-light;
     background-color: #fff;
     padding: 15px;
+    position: relative;
     cursor: pointer;
     .item-description {
       color: #777;
@@ -211,6 +259,27 @@
   }
   .item+.item {
     margin-top: 16px;
+  }
+  
+  /deep/ .item-status {
+    .fa-icon {
+      width: 25px;
+      height: 25px;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: solid 1px #777;
+    border-radius: 2px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
   }
 
   @media (max-width: 379px) {
