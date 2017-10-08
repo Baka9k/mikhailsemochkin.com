@@ -1,0 +1,17 @@
+// Animations for Vue components
+// https://vuejs.org/v2/guide/transitions.html
+
+.list-animated-move {
+  transition: all 0.75s;
+}
+.list-animated-item {
+  transition: all 0.75s;
+  display: block;
+}
+.list-animated-enter, .list-animated-leave-to {
+  opacity: 0;
+  transform: translateX(700px);
+}
+.list-animated-leave-active {
+  position: absolute;
+}

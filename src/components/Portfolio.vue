@@ -33,17 +33,23 @@
                     b-button.btn.btn-success.btn-lg.addbtn(@click="addItem") Добавить
                     
           .items
-            .item(v-for="(item, index) in portfolioItems")
-              .item-title
-                h4 {{item.title}}
-              .item-description
-                | {{item.description}}
-              .item-status(v-if="item.unsynced")
-                icon(name="spinner", spin)
-              .item-status(v-else-if="item.syncError")
-                icon(name="warning")
-              .item-status(v-else, @click="handleRemoveItemClick(index)")
-                icon(name="trash")
+            transition-group(name="list-animated", tag="div")
+              .item(
+                v-for="(item, index) in portfolioItems",
+                :key="item._id",
+                class="list-animated-item"
+              )
+                .item-title
+                  h4 {{item.title}}
+                .item-description
+                  | {{item.description}}
+                template(v-if="isAdmin")
+                  .item-status(v-if="item.unsynced")
+                    icon(name="spinner", spin)
+                  .item-status(v-else-if="item.syncError")
+                    icon(name="warning")
+                  .item-status(v-else, @click="handleRemoveItemClick(index)")
+                    icon(name="trash")
   
       // Item delete confirmation dialog
       b-modal(
@@ -53,7 +59,7 @@
         cancel-title="Отмена",
         @ok="handleDeleteOk",
         @cancel="handleDeleteCancel"
-        )
+      )
         | Вы точно хотите удалить это из портфолио?
           
           
@@ -227,6 +233,7 @@
   
   @import '../scss/variables.scss';
   @import '../scss/loading-gears.scss';
+  @import '../scss/animations.scss';
   
   .card {
     border-radius: 2px;
