@@ -42,8 +42,19 @@
                 icon(name="spinner", spin)
               .item-status(v-else-if="item.syncError")
                 icon(name="warning")
-              .item-status(v-else, @click="removeItem(index)")
+              .item-status(v-else, @click="handleRemoveItemClick(index)")
                 icon(name="trash")
+  
+      // Item delete confirmation dialog
+      b-modal(
+        v-model="deleteConfirmationModal",
+        title="Внимание",
+        ok-title="Да",
+        cancel-title="Отмена",
+        @ok="handleDeleteOk",
+        @cancel="handleDeleteCancel"
+        )
+        | Вы точно хотите удалить это из портфолио?
           
           
             
@@ -112,6 +123,19 @@
         this.resetNewItem()
         this.portfolioItems.unshift(newItem)
         this.sendItemToServer(newItem)
+      },
+      
+      handleRemoveItemClick: function (index) {
+        this.deleteConfirmationModal = true
+        this.itemToRemoveIndex = index
+      },
+
+      handleDeleteOk: function () {
+        this.removeItem(this.itemToRemoveIndex)
+      },
+      handleDeleteCancel: function () {
+        this.deleteConfirmationModal = false
+        this.itemToRemoveIndex = null
       },
       
       removeItem: function (index) {
@@ -186,6 +210,8 @@
         portfolioItems: [],
         loading: true,
         loadingError: false,
+        deleteConfirmationModal: false,
+        itemToRemoveIndex: null,
         serverErrorMessage: 'Возникли проблемы при синхронизации ваших изменений с сервером. ' +
           'Проверьте ваше подключение.'
       }
