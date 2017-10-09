@@ -50,11 +50,11 @@
     min-height: 64px;
   }
   .navbar-brand {
-    font-family: Lobster, Helvetica, Airal, sans-serif;
+    font-family: $font-logo;
     font-size: 28px;
   }
   .nav {
-    font-family: "Roboto Condensed", Helvetica, Airal, sans-serif;
+    font-family: $font-condensed;
     font-size: 18px;
     font-weight: 500;
   }

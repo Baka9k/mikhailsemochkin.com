@@ -106,14 +106,14 @@
         margin-top: 12px;
         margin-bottom: 6px;
         @media (max-width: 768px) {
-          font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+          font-family: $font-condensed;
           font-size: 15px;
           margin-bottom: 0;
         }
       }
       .company-site {
         @media (max-width: 768px) {
-          font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+          font-family: $font-condensed;
           font-size: 14px;
         }
       }

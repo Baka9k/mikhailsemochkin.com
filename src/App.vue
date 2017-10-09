@@ -63,14 +63,14 @@
     width: 100%;
     min-height: 100vh;
     background-color: #f2f2f2;
-    font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+    font-family: $font-content;
     color: $font-color-primary;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
     line-height: 20px;
     h1, h2, h3 {
-      font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+      font-family: $font-headers;
     }
     .cont {
       padding-top: 30px;
@@ -88,9 +88,6 @@
       float: none;
       margin-left: auto;
       margin-right: auto;
-    }
-    form {
-    
     }
     .btn {
       border-radius: 2px;
