@@ -2,7 +2,7 @@
 
   b-navbar(toggleable='md', type='dark', variant='info')
     b-nav-toggle.nav-toggle(target='nav_collapse')
-    b-navbar-brand(href='#') Mikhail Semochkin
+    b-navbar-brand(to='/') Mikhail Semochkin
     b-collapse#nav_collapse(is-nav)
       b-nav(is-nav-bar='')
         b-nav-item(to='about') Обо мне
