@@ -1,6 +1,6 @@
 <template lang="pug">
   
-  div
+  #portfolio
     b-container.cont
       .max800.centered
   
@@ -234,6 +234,10 @@
   @import '../scss/variables.scss';
   @import '../scss/loading-gears.scss';
   @import '../scss/animations.scss';
+  
+  #portfolio {
+    overflow-x: hidden;
+  }
   
   .card {
     border-radius: 2px;
