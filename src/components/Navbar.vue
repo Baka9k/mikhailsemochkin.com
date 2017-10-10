@@ -5,10 +5,10 @@
     b-navbar-brand(to='/') Mikhail Semochkin
     b-collapse#nav_collapse(is-nav)
       b-nav(is-nav-bar='')
-        b-nav-item(to='about') Обо мне
-        b-nav-item(to='experience') Опыт работы
-        b-nav-item(to='portfolio') Портфолио
-        b-nav-item(to='contact') Контакты
+        b-nav-item(to='/about') Обо мне
+        b-nav-item(to='/experience') Опыт работы
+        b-nav-item(to='/portfolio') Портфолио
+        b-nav-item(to='/contact') Контакты
       // Right aligned nav items
       b-nav.ml-auto(is-nav-bar='')
         div(v-if="isAdmin")
