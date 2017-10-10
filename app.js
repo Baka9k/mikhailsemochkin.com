@@ -253,6 +253,58 @@ router.route('/api/portfolio/:item_id')
     })
 
 
+// File upload
+
+router.route('/api/uploadimg')
+
+  .post(
+    isLoggedIn,
+    upload.array('image', 1),
+    function (req, res) {
+
+      // req.files is array of files
+      // req.files[i] looks like:
+      /*
+       {
+       fieldname: 'myfile',
+       originalname: '12912531_225240144508422_22998161_n.jpg',
+       encoding: '7bit',
+       mimetype: 'image/jpeg',
+       destination: 'uploads/',
+       filename: '2b0831e79589b8cd722568c9e5259b63',
+       path: 'uploads/2b0831e79589b8cd722568c9e5259b63',
+       size: 54728
+       }
+       */
+
+      for (let i = 0; i < req.files.length; i++) {
+        const file = req.files[i]
+        if (!(file.mimetype.startsWith('image/'))) {
+          console.log(file.mimetype + ' is not an image and will be deleted')
+          deleteFile(file.path)
+          continue
+        }
+        const extension = file.originalname.match(/\.\w+$/)
+        if (!extension) {
+          console.log(file.originalname + ' has no extension and will be deleted')
+          deleteFile(file.path)
+        } else {
+          file.pathWithExtension = file.path + extension[0]
+          fs.rename(file.path, file.pathWithExtension, function () {
+            // const fullUrl = req.protocol + '://' + req.get('host') + '/';
+            console.log(chalk.cyan(`Image uploaded: ${file.originalname}`))
+            res.json({
+              path: file.pathWithExtension,
+              success: true
+            })
+          })
+        }
+      }
+    }
+  )
+
+
+
 // ============== /API ==============
 
 app.use('/', router)

@@ -42,8 +42,8 @@
                   @tbwchange="updateItemContent"
                 )
   
-              // What users see
-              .show-item(v-html="item.content")
+            // What users see
+            .show-item(v-html="item.content")
   
               
             
