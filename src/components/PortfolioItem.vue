@@ -37,7 +37,10 @@
                 b-col(col, sm="6", cols="12")
                   b-button.btn.btn-success.btn-lg.addbtn(@click="handleSaveClick") Сохранить изменения
               .item-content
-                // Content
+                trumbowyg(
+                  :content="item.content",
+                  @tbwchange="updateItemContent"
+                )
   
               // What users see
               .show-item(v-html="item.content")
@@ -54,6 +57,7 @@
   import 'vue-awesome/icons/spinner'
   import 'vue-awesome/icons/warning'
   import 'vue-awesome/icons/check-square-o'
+  import Trumbowyg from '@/components/Trumbowyg'
 
   export default {
     
@@ -67,7 +71,8 @@
     },
     
     components: {
-      Icon
+      Icon,
+      Trumbowyg
     },
     
     methods: {
@@ -126,6 +131,10 @@
             that.syncError = true
           }
         })
+      },
+
+      updateItemContent: function (content) {
+        this.item.content = content
       },
 
       handleServerError: function (message, err) {

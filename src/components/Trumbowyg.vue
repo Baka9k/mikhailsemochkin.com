@@ -26,56 +26,7 @@
 
   export default {
 
-    mounted () {
-      $.trumbowyg.svgPath = icons
-      
-      const config = {
-        btnsDef: {
-          // Customizables dropdowns
-          image: {
-            dropdown: ['insertImage', 'upload', 'base64', 'noEmbed'],
-            ico: 'insertImage'
-          }
-        },
-        btns: [
-          ['viewHTML'],
-          ['undo', 'redo'],
-          ['formatting'],
-          'btnGrp-design',
-          ['link'],
-          ['image'],
-          'btnGrp-justify',
-          'btnGrp-lists',
-          ['foreColor', 'backColor'],
-          ['preformatted'],
-          ['horizontalRule'],
-          ['fullscreen']
-        ],
-        plugins: {
-          upload: {
-            /*
-            // Add imgur parameters to upload plugin
-            serverPath: 'https://api.imgur.com/3/image',
-            fileFieldName: 'image',
-            headers: {
-              'Authorization': 'Client-ID 9e57cb1c4791cea'
-            },
-            urlPropertyName: 'data.link'
-            */
-            serverPath: '/api/uploadimg',
-            fileFieldName: 'image',
-            urlPropertyName: 'path',
-            statusPropertyName: 'success'
-          }
-        },
-        lang: 'ru'
-      }
-      
-      $('#trumbowyg-editor')
-        .trumbowyg(config)
-        .on('tbwchange', this.onChange)
-        .trumbowyg('html', this.content)
-    },
+    name: 'trumbowyg',
 
     props: {
       content: {
@@ -84,7 +35,62 @@
       }
     },
 
+    mounted () {
+      this.init()
+    },
+
     methods: {
+      
+      init () {
+        $.trumbowyg.svgPath = icons
+
+        const config = {
+          btnsDef: {
+            // Customizables dropdowns
+            image: {
+              dropdown: ['insertImage', 'upload', 'base64', 'noEmbed'],
+              ico: 'insertImage'
+            }
+          },
+          btns: [
+            ['viewHTML'],
+            ['undo', 'redo'],
+            ['formatting'],
+            'btnGrp-design',
+            ['link'],
+            ['image'],
+            'btnGrp-justify',
+            'btnGrp-lists',
+            ['foreColor', 'backColor'],
+            ['preformatted'],
+            ['horizontalRule'],
+            ['fullscreen']
+          ],
+          plugins: {
+            upload: {
+              /*
+              // Add imgur parameters to upload plugin
+              serverPath: 'https://api.imgur.com/3/image',
+              fileFieldName: 'image',
+              headers: {
+                'Authorization': 'Client-ID 9e57cb1c4791cea'
+              },
+              urlPropertyName: 'data.link'
+              */
+              serverPath: '/api/uploadimg',
+              fileFieldName: 'image',
+              urlPropertyName: 'path',
+              statusPropertyName: 'success'
+            }
+          },
+          lang: 'ru'
+        }
+
+        $('#trumbowyg-editor')
+          .trumbowyg(config)
+          .on('tbwchange', this.onChange)
+          .trumbowyg('html', this.content)
+      },
 
       onChange () {
         const $trumbowyg = $('#trumbowyg-editor')
