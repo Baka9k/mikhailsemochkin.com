@@ -98,7 +98,9 @@
       background-color: #4CAF50;
       border-color: #4CAF50;
     }
-    
+    .nopadding {
+      padding: 0;
+    }
   }
   
 </style>

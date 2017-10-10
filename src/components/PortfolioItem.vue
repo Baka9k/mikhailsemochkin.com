@@ -22,14 +22,20 @@
               b-input-group.field(left='Описание')
                 b-form-input(v-model="item.description")
               b-row
-                b-col(cols="6")
+                b-col(col, sm="6", cols="12")
                   b-form-select.priority(v-model="item.priority")
                     template(slot="first")
                       // this slot appears above the options from 'options' prop
                       option(:value="null", disabled) -- Приоритет --
-                    option(v-for="i in (item.maxPriority)", :value="i") {{i}}
-                b-col(cols="6")
-                  b-button.btn.btn-success.btn-lg.addbtn(@click="saveItem") Сохранить изменения
+                    option(v-for="i in maxPriority", :value="i") {{i}}
+                  .item-status(v-if="unsynced")
+                    icon(name="spinner", spin)
+                  .item-status(v-else-if="syncError")
+                    icon(name="warning")
+                  .item-status(v-else)
+                    icon(name="check-square-o")
+                b-col(col, sm="6", cols="12")
+                  b-button.btn.btn-success.btn-lg.addbtn(@click="handleSaveClick") Сохранить изменения
               .item-content
                 // Content
   
@@ -47,6 +53,7 @@
   import Icon from 'vue-awesome/components/Icon'
   import 'vue-awesome/icons/spinner'
   import 'vue-awesome/icons/warning'
+  import 'vue-awesome/icons/check-square-o'
 
   export default {
     
@@ -72,7 +79,8 @@
           type: 'GET',
           url: url,
           success: function (res) {
-            that.item = res
+            that.item = res.item
+            that.maxPriority = res.maxPriority
             that.loading = false
             // console.log(res)
           },
@@ -85,10 +93,16 @@
         })
       },
       
+      handleSaveClick: function () {
+        this.unsynced = true
+        this.sendUpdatedItemToServer()
+      },
+      
       sendUpdatedItemToServer: function () {
         const that = this
         const item = that.item
         const url = '/api/portfolio/' + that.itemID
+        // console.log('Item sent to server: ', item)
         $.ajax({
           url: url,
           type: 'PUT',
@@ -99,17 +113,17 @@
             content: item.content
           },
           success: function (res) {
-            item.unsynced = false
+            that.unsynced = false
             if (!res.itemID || !(res.itemID === item._id)) {
-              item.syncError = true
+              that.syncError = true
               that.handleServerError('Error while sending updated portfolio item to server: ',
                 'Server did not return updated portfolio item ID in response')
             }
           },
           error: function (err) {
             that.handleServerError('Error while sending updated portfolio item to server: ', err)
-            item.unsynced = false
-            item.syncError = true
+            that.unsynced = false
+            that.syncError = true
           }
         })
       },
@@ -136,8 +150,11 @@
       return {
         item: null,
         itemID: this.$route.params.id,
+        maxPriority: 1,
         loading: true,
         loadingError: false,
+        unsynced: false,
+        syncError: false,
         serverErrorMessage: 'Возникли проблемы при синхронизации ваших изменений с сервером. ' +
           'Проверьте ваше подключение.'
       }
@@ -206,14 +223,14 @@
       right: 0;
     }
     color: $font-color-secondary;
-    position: absolute;
-    top: 15px;
-    right: 15px;
     border: solid 1px $font-color-secondary;
     border-radius: 2px;
     width: 40px;
     height: 40px;
     text-align: center;
+    position: relative;
+    margin-top: 8px;
+    margin-left: 10px;
   }
 
   @media (max-width: 379px) {
@@ -233,6 +250,12 @@
     .addbtn {
       padding: 2px 12px;
     }
+  }
+  
+  .priority, .item-status {
+    position: relative;
+    float: left;
+    clear: none;
   }
 
 </style>

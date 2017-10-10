@@ -184,8 +184,11 @@ router.route('/api/portfolio/:item_id')
         ])
         .then(function (results) {
           const item = results[0]
-          item.maxPriority = results[1]
-          res.json(item)
+          const maxPriority = results[1]
+          res.json({
+            item: item,
+            maxPriority: maxPriority
+          })
         })
         .catch(function (err) {
           console.log(chalk.red('Error while getting portfolio item with id ' + req.params.item_id + ': '))
@@ -200,7 +203,7 @@ router.route('/api/portfolio/:item_id')
   .put(
     isLoggedIn,
     function (req, res) {
-      if (!req.body.title || !req.body.description || !req.body.content) {
+      if (!req.body.title || !req.body.description || !(typeof req.body.content === 'string')) {
         const errorMsg = 'Error: PUT request to /api/portfolio/:item_id should contain "title", ' +
           '"description" and "content" fields'
         console.log(chalk.red(errorMsg))
@@ -213,7 +216,7 @@ router.route('/api/portfolio/:item_id')
           console.log(chalk.red(err))
           res.status(500).json({ error: err })
         } else {
-          item.tile = req.body.title
+          item.title = req.body.title
           item.description = req.body.description
           item.priority = req.body.priority || Infinity
           item.content = req.body.content
