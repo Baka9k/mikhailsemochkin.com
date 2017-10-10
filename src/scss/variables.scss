@@ -9,13 +9,16 @@ $font-color-secondary: #737373;
 
 
 /* == Fonts == */
+
 /* Text in navbar-brand */
 $font-logo: "Lobster", Helvetica, Airal, sans-serif;
+
 /* Text in h1, h2, h3 */
 $font-headers: "Roboto Condensed", Helvetica, Arial, sans-serif;
+
 /* Default font for page content */
 $font-content: "Roboto Slab", Helvetica, Arial, sans-serif;
+
 /* Font for for use in confined spaces - for some elements on small screens in mobile version,
-*  navbar tabs and some long headers
-*/
+ * navbar tabs and some long headers */
 $font-condensed: "Roboto Condensed", Helvetica, Arial, sans-serif;

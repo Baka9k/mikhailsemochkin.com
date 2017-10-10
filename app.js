@@ -44,6 +44,7 @@ app.use(bodyParser.json())
 // configure db
 const options = {}
 const url = 'mongodb://localhost/mikhailsemochkin'
+mongoose.Promise = Promise
 mongoose.connect(url, options, function (err) {
   if (err) {
     console.log(chalk.red('Error while connecting to DB:'))
@@ -176,15 +177,21 @@ router.route('/api/portfolio/:item_id')
 
   .get(
     function (req, res) {
-      PortfolioItem.findById(req.params.item_id, function (err, item) {
-        if (err) {
+      Promise
+        .all([
+          PortfolioItem.findById(req.params.item_id),
+          PortfolioItem.count({})
+        ])
+        .then(function (results) {
+          const item = results[0]
+          item.maxPriority = results[1]
+          res.json(item)
+        })
+        .catch(function (err) {
           console.log(chalk.red('Error while getting portfolio item with id ' + req.params.item_id + ': '))
           console.log(chalk.red(err))
           res.status(500).json({ error: err })
-        } else {
-          res.json(item.content)
-        }
-      })
+        })
     })
 
 
@@ -248,19 +255,10 @@ router.route('/api/portfolio/:item_id')
 app.use('/', router)
 
 
-const getPortfolioItemsLength = function (cb) {
-  let len = PortfolioItem.count({}, function (err, count) {
-    if (err) {
-      if (cb) cb(err)
-    } else {
-      if (cb) cb(count)
-    }
-  })
-}
-
 
 app.listen(port)
 console.log(chalk.green('App listening on port ' + port))
-getPortfolioItemsLength(function (count) {
-  console.log(chalk.green('Portfolio items in DB: ' + count))
-})
+PortfolioItem.count({})
+  .then(function (count) {
+    console.log(chalk.green('Portfolio items in DB: ' + count))
+  })

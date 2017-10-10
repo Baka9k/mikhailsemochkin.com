@@ -37,7 +37,8 @@
               .item(
                 v-for="(item, index) in portfolioItems",
                 :key="item._id",
-                class="list-animated-item"
+                class="list-animated-item",
+                @click="handleItemClick(item._id)"
               )
                 .item-title
                   h4 {{item.title}}
@@ -186,6 +187,12 @@
             item.syncError = true
           }
         })
+      },
+      
+      handleItemClick: function (itemID) {
+        if (!itemID) return
+        let to = '/portfolio/' + itemID
+        this.$router.push(to)
       },
 
       handleServerError: function (message, err) {

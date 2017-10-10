@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import About from '@/components/About'
 import Experience from '@/components/Experience'
 import Portfolio from '@/components/Portfolio'
+import PortfolioItem from '@/components/PortfolioItem'
 import Contact from '@/components/Contact'
 import Login from '@/components/Login'
 import LoginError from '@/components/LoginError'
@@ -26,6 +27,11 @@ export default new Router({
       path: '/portfolio',
       name: 'Portfolio',
       component: Portfolio
+    },
+    {
+      path: '/portfolio/:id',
+      name: 'PortfolioItem',
+      component: PortfolioItem
     },
     {
       path: '/contact',
