@@ -66,7 +66,7 @@
     background-color: #fff;
     border-radius: 2px;
     padding: 20px 15px;
-    box-shadow: $card-shadow;
+    box-shadow: $card-shadow-light;
     @media (max-width: 768px) {
       padding: 20px 12px;
     }
