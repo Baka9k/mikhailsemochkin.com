@@ -2,53 +2,52 @@
   
   #portfolio-item
     b-container.cont
-      b-row
-        b-col.item
-        
-          .close-item(@click="handleCloseItemClick")
-            .close-icon-cont
-              icon(name="remove")
-        
-          .loading-cont(v-if="loading")
-            .loading
-              .gear
-  
-          .loading-error-cont(v-else-if="loadingError")
-            .loading-error
-              | Извините, произошла ошибка при загрузке записи в портфолио.
-  
-          .loaded(v-else)
-            
-            // What admins see
-            .edit-item(v-if="isAdmin")
-              b-input-group.field(left="Заголовок")
-                b-form-input(v-model="item.title")
-              b-input-group.field(left='Описание')
-                b-form-input(v-model="item.description")
-              b-row
-                b-col(col, sm="6", cols="12")
-                  b-form-select.priority(v-model="item.priority")
-                    template(slot="first")
-                      // this slot appears above the options from 'options' prop
-                      option(:value="null", disabled) -- Приоритет --
-                    option(v-for="i in maxPriority", :value="i") {{i}}
-                  .item-status(v-if="unsynced")
-                    icon(name="spinner", spin)
-                  .item-status(v-else-if="syncError")
-                    icon(name="warning")
-                  .item-status(v-else)
-                    icon(name="check-square-o")
-                b-col(col, sm="6", cols="12")
-                  b-button.btn.btn-success.btn-lg.addbtn(@click="handleSaveClick") Сохранить изменения
-              .item-content
-                trumbowyg(
-                  :content="item.content",
-                  @tbwchange="updateItemContent"
-                )
-              hr
-  
-            // What users see
-            .show-item(v-html="item.content")
+      b-col.item(col, cols="12")
+      
+        .close-item(@click="handleCloseItemClick")
+          .close-icon-cont
+            icon(name="remove")
+      
+        .loading-cont(v-if="loading")
+          .loading
+            .gear
+
+        .loading-error-cont(v-else-if="loadingError")
+          .loading-error
+            | Извините, произошла ошибка при загрузке записи в портфолио.
+
+        .loaded(v-else)
+          
+          // What admins see
+          .edit-item(v-if="isAdmin")
+            b-input-group.field(left="Заголовок")
+              b-form-input(v-model="item.title")
+            b-input-group.field(left='Описание')
+              b-form-input(v-model="item.description")
+            b-row
+              b-col(col, sm="6", cols="12")
+                b-form-select.priority(v-model="item.priority")
+                  template(slot="first")
+                    // this slot appears above the options from 'options' prop
+                    option(:value="null", disabled) -- Приоритет --
+                  option(v-for="i in maxPriority", :value="i") {{i}}
+                .item-status(v-if="unsynced")
+                  icon(name="spinner", spin)
+                .item-status(v-else-if="syncError")
+                  icon(name="warning")
+                .item-status(v-else)
+                  icon(name="check-square-o")
+              b-col(col, sm="6", cols="12")
+                b-button.btn.btn-success.btn-lg.addbtn(@click="handleSaveClick") Сохранить изменения
+            .item-content
+              trumbowyg(
+                :content="item.content",
+                @tbwchange="updateItemContent"
+              )
+            hr
+
+          // What users see
+          .show-item(v-html="item.content")
   
               
             
