@@ -2,7 +2,7 @@
   
   #portfolio-item
     b-container.cont
-      b-row.max800.centered
+      b-row
         b-col.item
         
           .loading-cont(v-if="loading")
@@ -183,7 +183,11 @@
   
   #portfolio-item {
     /deep/ .show-item {
-    
+      img {
+        max-width: 100%;
+        border: solid 1px #ddd;
+        margin: 10px 20px 10px 0;
+      }
     }
   }
   
@@ -191,7 +195,7 @@
     border-radius: 2px;
     border: none;
     background-color: #fff;
-    padding: 20px 15px;
+    padding: 20px;
     box-shadow: $card-shadow-light;
     h4 {
       margin: 10px 0;
