@@ -49,7 +49,7 @@
                     icon(name="spinner", spin)
                   .item-status(v-else-if="item.syncError")
                     icon(name="warning")
-                  .item-status(v-else, @click="handleRemoveItemClick(index)")
+                  .item-status(v-else, @click.stop="handleRemoveItemClick(index)")
                     icon(name="trash")
   
       // Item delete confirmation dialog
