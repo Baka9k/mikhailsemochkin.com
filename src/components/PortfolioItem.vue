@@ -181,8 +181,10 @@
   @import '../scss/loading-gears.scss';
   @import '../scss/animations.scss';
   
-  #portfolio {
-    overflow-x: hidden;
+  #portfolio-item {
+    /deep/ .show-item {
+    
+    }
   }
   
   .item {
