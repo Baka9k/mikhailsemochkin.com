@@ -5,6 +5,10 @@
       b-row
         b-col.item
         
+          .close-item(@click="handleCloseItemClick")
+            .close-icon-cont
+              icon(name="remove")
+        
           .loading-cont(v-if="loading")
             .loading
               .gear
@@ -41,6 +45,7 @@
                   :content="item.content",
                   @tbwchange="updateItemContent"
                 )
+              hr
   
             // What users see
             .show-item(v-html="item.content")
@@ -57,6 +62,7 @@
   import 'vue-awesome/icons/spinner'
   import 'vue-awesome/icons/warning'
   import 'vue-awesome/icons/check-square-o'
+  import 'vue-awesome/icons/remove'
   import Trumbowyg from '@/components/Trumbowyg'
 
   export default {
@@ -137,6 +143,10 @@
         this.item.content = content
       },
 
+      handleCloseItemClick: function () {
+        this.$router.push('/portfolio')
+      },
+
       handleServerError: function (message, err) {
         if (message) {
           console.log(message)
@@ -189,24 +199,42 @@
         margin: 10px 20px 10px 0;
       }
     }
+    .close-item {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      border: solid 2px $font-color-secondary;
+      color: $font-color-secondary;
+      border-radius: 50%;
+      cursor: pointer;
+      /deep/ .close-icon-cont {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        .fa-icon {
+          width: 30px;
+          height: 30px;
+          margin: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
   }
   
   .item {
     border-radius: 2px;
     border: none;
     background-color: #fff;
-    padding: 20px;
+    padding: 60px 20px 30px 20px;
     box-shadow: $card-shadow-light;
     h4 {
       margin: 10px 0;
-    }
-    hr {
-      border-top: 1px dashed #8c8b8b;
-      display: block;
-      width: 100%;
-      border-bottom: none;
-      margin-bottom: 2px;
-      margin-top: 2px;
     }
     .addbtn {
       position: relative;
