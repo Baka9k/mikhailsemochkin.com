@@ -63,12 +63,12 @@
             sm: '6',
             xs: '12',
             content: '<p>Меня зовут Михаил Семочкин, и я web-разрабочик. Я люблю программировать на JavaScript и ' +
-            'создавать красивые и удобные интерфейсы.</p><p>Могу с нуля сделать, например, интернет-магазин со сложными ' +
-            'калькуляторами, формами, кассой с оплатой Яндекс.Деньгами, на ' +
-            'Docker + Node + MongoDB/PostgreSQL + Express на бекенде, и React/Vue/Ractive + Bootstrap/Materialize' +
-            ' на фронтенде, и' +
-            ' со сборкой с помощью Gulp/Webpack, препроцессингом стилей SCSS/LESS, минификацией JavaScript и' +
-            ' всеми прочими вещами, которые нужны современному сайту.</p>'
+            'создавать красивые и удобные сайты.</p><p>Работал как с front-end (создание лендингов, ' +
+            'программирование калькуляторов и корзин в интернет-магазинах, графика на canvas), так и с back-end' +
+            ' (разработка серверов на Node.js, работа с базами данных, обработка сервером платежей с ' +
+            'помощью API Яндекс.Кассы).<p>Много работал с Vue, понимаю как программировать на реактивных ' +
+            'фреймворках, знаю и практикую современные принципы web-разработки (git, npm, ' +
+            'cистемы сборки, минификация и конкатенация стилей и скриптов, css-переменные, автопрефиксеры...</p>'
           },
           {
             title: 'Навыки',
@@ -77,12 +77,11 @@
             md: '6',
             sm: '6',
             xs: '12',
-            content: '<h4>Верстка</h4>HTML5, CSS3, Bootstrap, Materialize, LESS, SCSS' +
-            '<h4>Фронтенд</h4>JS ES5/ES6/ES7, Vue, React, Ractive, JQuery' +
-            '<h4>Бекэнд</h4>Node.js, npm, nvm, Express, Passport, Pug' +
-            '<h4>Базы данных</h4>SQLite3, MongoDB, PostgeSQL' +
-            '<h4>Администрирование и деплой</h4>Debian, Ubuntu, Ubuntu Server, ssh, AWS, nginx' +
-            '<h4>Инструменты сборки и разработки</h4>git, gulp, grunt, webpack'
+            content: '<h4>Верстка</h4>HTML5, CSS3, Bootstrap, Materialize, LESS, SASS' +
+            '<h4>Front-end</h4>JavaScript (включая ECMAScript 6 features), JQuery, Vue, React' +
+            '<h4>Back-end</h4>Node.js, Express, Passport, Pug, SQLite3, MongoDB, PostgreSQL' +
+            '<h4>Администрирование и деплой</h4>Debian, Ubuntu/Ubuntu Server, ssh, AWS, nginx' +
+            '<h4>Инструменты сборки и разработки</h4>git, gulp, npm, nvm, grunt, webpack'
           },
           {
             title: 'Разное',
