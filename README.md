@@ -2,7 +2,7 @@
 
 > Personal website of Mikhail Semochkin 
 
-## Build Setup
+## 1. Build
 
 ``` bash
 # install dependencies
@@ -27,4 +27,9 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+##2. Run
+``` bash
+# You should have MongoDB and Node installed
+# (after npm run build)
+node app.js <admin login> <admin password> <session secret>
+```
