@@ -27,7 +27,7 @@ npm run e2e
 npm test
 ```
 
-##2. Run
+## 2. Run
 ``` bash
 # You should have MongoDB and Node installed
 # (after npm run build)
